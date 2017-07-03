@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
-
+const userFamily=(require('./userFamily.js'));
 
 const userSchema = new Schema(
   // 1st arg -> fields of the documents of this collection
   {
     // All users
-    name: { type: String },
+    // name: { type: String },
     firstName: { type: String },
     lastName: { type: String },
     //***  is better to use email as username 
@@ -20,10 +20,10 @@ const userSchema = new Schema(
     //         enum: [ 'guest', 'admin' ],
     //         default: 'guest'
     //         },
-    family:[userFamily.Schema],
+    // family:[userFamily.Schema],
 
     // Traditional registration users
-    username: { type: String },
+    //username: { type: String },
     encryptedPassword: { type: String },
 
     // Login with Facebook users

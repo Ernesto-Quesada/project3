@@ -26,6 +26,7 @@ passport.deserializeUser((userId, cb) => {
 
   // query the database with the ID from the box
   User.findById(userId, (err, theUser) => {
+    console.log(">>>>>>user",theUser);
     if (err) {
       cb(err);
       return;
@@ -39,16 +40,16 @@ passport.deserializeUser((userId, cb) => {
 passport.use( new LocalStrategy(
   // 1st arg -> options to customize LocalStrategy
   {
-      // <input name="loginUsername">
-    usernameField: 'loginUsername',
+      // in the form <input name="loginEmailInput">
+    emailInput: 'loginEmailInput',
       // <input name="loginPassword">
-    passwordField: 'loginPassword'
+    passwordInput: 'loginPassword'
   },
 
   // 2nd arg -> callback for the logic that validates the login
-  (loginUsername, loginPassword, next) => {
+  (loginEmailInput, loginPassword, next) => {
     User.findOne(
-      { username: loginUsername },
+      { email: loginEmailInput },
 
       (err, theUser) => {
         // Tell Passport if there was an error (nothing we can do)
@@ -57,11 +58,11 @@ passport.use( new LocalStrategy(
           return;
         }
 
-        // Tell Passport if there is no user with given username
+        // Tell Passport if there is no user with given email
         if (!theUser) {
             //       false in 2nd arg means "Log in failed!"
             //         |
-          next(null, false, { message: 'Wrong username' });
+          next(null, false, { message: 'Wrong email' });
           return;  //   |
         }          //   v
                    // message -> req.flash('error')
@@ -78,7 +79,7 @@ passport.use( new LocalStrategy(
         // Give Passport the user's details (SUCCESS!)
         next(null, theUser, {
           // message -> req.flash('success')
-          message: `Login for ${theUser.username} successful.`
+          message: `Login for ${theUser.email} successful.`
         });
           // -> this user goes to passport.serializeUser()
       }

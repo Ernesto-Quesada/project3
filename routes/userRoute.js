@@ -11,11 +11,11 @@ const routeforUser = express.Router();
 
 // routeforUser.get('/user/:id', (req, res, next) => {
 
-routeforUser.get('/profile/edit',
+routeforUser.get('/profile',
     ensure.ensureLoggedIn('/login'),
 
     (req, res, next) => {
-        res.render('user/editUserProfile.ejs', {
+        res.render('user/userProfile.ejs', {
         successMessage: req.flash('success')
         });
     }

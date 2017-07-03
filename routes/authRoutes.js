@@ -34,29 +34,29 @@ authRoutes.post('/signup',
   ensure.ensureNotLoggedIn('/'),
 
   (req, res, next) => {
-    const signupUsername = req.body.signupUsername;
+    const emailInput = req.body.emailInput;
     const signupPassword = req.body.signupPassword;
 
-    // Don't let users submit blank usernames or passwords
-    if (signupUsername === '' || signupPassword === '') {
+    // Don't let users submit blank emails or passwords
+    if (emailInput === '' || signupPassword === '') {
       res.render('auth/signUp.ejs', {
-        errorMessage: 'Please provide both username and password.'
+        errorMessage: 'Please provide both email and password.'
       });
       return;
     }
     // Check password length, characters
-    if (signupPassword.length<=1 || signupPassword.length >=10) {
-      res.render('auth/signUp.ejs', {
-        errorMessage: 'Password need to have between 3 and 10 characters.'
-      });
-      return;
-    }
+    // if (signupPassword.length<=1 || signupPassword.length >=10) {
+    //   res.render('auth/signUp.ejs', {
+    //     errorMessage: 'Password need to have between 3 and 10 characters.'
+    //   });
+    //   return;
+    // }
 
     User.findOne(
       // 1st arg -> criteria of the findOne (which documents)
-      { username: signupUsername },
+      { email: emailInput },
       // 2nd arg -> projection (which fields)
-      { username: 1 },
+      { email: 1 },
       // 3rd arg -> callback
       (err, foundUser) => {
         if (err) {
@@ -64,10 +64,10 @@ authRoutes.post('/signup',
           return;
         }
 
-        // Don't let the user register if the username is taken
+        // Don't let the user register if the email is taken
         if (foundUser) {
           res.render('auth/signUp.ejs', {
-            errorMessage: 'Username is already taken. Please use another'
+            errorMessage: 'email is already taken. Please use another'
           });
           return;
         }
@@ -80,8 +80,12 @@ authRoutes.post('/signup',
 
         // Create the user
         const theUser = new User({
-          name: req.body.signupName,
-          username: signupUsername,
+          firstName: req.body.firstNameInput,
+          lastName: req.body.lastNameInput,
+          email: emailInput,
+          phone: req.body.phoneInput,
+          //address:,
+          country:req.body.countryInput,
           encryptedPassword: hashPass
         });
 
