@@ -135,7 +135,7 @@ authRoutes.post('/login',
     //                   local as in "LocalStrategy" (our method of logging in)
     //                     |
   passport.authenticate('local', {
-    successRedirect: '/',
+    successRedirect: '/profile',
     successFlash: true,        // req.flash('success')
     failureRedirect: '/login',
     failureFlash: true         // req.flash('error')

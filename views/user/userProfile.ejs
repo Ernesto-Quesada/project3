@@ -9,6 +9,17 @@
                 <p> email : <span><%= user.email%></span></p>
                 <p> phone : <span><%= user.phone %></span></p>
                 <p> Country : <span><%= user.country%></span></p>
+                 <div class="row"> 
+                 <h2>A que familiar desea mandarle dinero</h2>
+                    <% user.family.forEach((oneFamily) => { %>
+                    <div class="col-md-4">
+                        <a href="/useramount/<%= oneFamily._id %>">
+                            <h4> <%= oneFamily.name%> <%= oneFamily.firstApell%> <%= oneFamily.secondApell%></h4>
+                        </a>
+                    </div>
+                        
+                    <% }) %>
+                </div>
                 <p> family : <span><%= user.family %></span></p>
                 
 

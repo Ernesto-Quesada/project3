@@ -43,36 +43,25 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                  <li>
-                        <a href="#" >Learn more...</a>
-                       
-                    </li>
-                    
-                   
-                    
-                    
-                        
                         <% if (typeof user !== 'undefined') { %>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= user.name%> <b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                    <li>
-                                        <li> <a href="/profile"> My Profile </a> </li>
-                                    </li> 
-                                    <li>
-                                        <li> <a href="/myaccount"> My Account </a> </li>
-                                    </li>  
-                                    <li>
-                                        <li> <a href="/logout"> Log Out </a> </li>
-                                    </li>                                  
-                                </ul>
-                    </li>
-                            
-                            
-                            
-                        <% } else { %>
-                            
-                            
+                        <li>
+                            <a href="#" >Hello <%= user.firstName%></a>
+                       </li>
+                       <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= user.firstName%> <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <li> <a href="/profile"> My Profile </a> </li>
+                                </li> 
+                                <li>
+                                    <li> <a href="/myaccount"> My Account </a> </li>
+                                </li>  
+                                <li>
+                                    <li> <a href="/logout"> Log Out </a> </li>
+                                </li>                                  
+                            </ul>
+                        </li>
+                    <% } else { %>
                     <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">SignUp/LogIn <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
@@ -86,9 +75,7 @@
                                 </ul>
                     </li>
                         <% } %>
-                        
-                    
-                    <li>
+                        <li>
                         <a href="/contact">Contact</a>
                     </li>
                     

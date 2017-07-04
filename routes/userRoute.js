@@ -68,6 +68,25 @@ routeforUser.post('/relative/new', (req, res, next) => {
 });
 
 
+routeforUser.get('/useramount/:familyid',(req,res,next)=>{
+//                              |
+const myFamilyId =req.params.familyid;
+User.findById(req.user.family.myFamilyId, (err, theRelative) =>{
+if (err){
+    next(err);
+    return;
+}
+    console.log('tehrelative',theRelative);
+    console.log('reuser',req.user);
+    console.log('myfamily',req.user.family)
+res.render('user/amount.ejs',{
+  //passing family to the view
+    theFamily: theRelative
+        });
+    });
+});
+
+
 
 
 
