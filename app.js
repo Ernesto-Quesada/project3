@@ -9,20 +9,22 @@ const mongoose     = require('mongoose');
 const session      = require('express-session');
 const passport     = require('passport');
 const flash        = require('connect-flash');
-require('dotenv').config();
 
+require('dotenv').config();
 require('./config/passport-config.js');
 
 mongoose.connect('mongodb://localhost/sender-app');
+//mongoose.connect(process.env.MONGODB_URI);
 
 const app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // default value for title local
-app.locals.title = 'Sender App from app.js';
+app.locals.title = 'MOney Sender';
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -33,29 +35,38 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(layouts);
 app.use(session({
-  secret: 'moneysender',
+  secret: 'mymoneysender',
   resave:true,
   saveUninitialized:true,
 }));
 app.use(flash());
+
 // These need to come AFTER the session middleware
 app.use(passport.initialize());
 app.use(passport.session());
 // ... and BEFORE our routes
 
-
-//user view ready in all views
-app.use((req , res, next )=> {
-  if(req.user){
+// This middleware sets the user variable for all views
+// (only if logged in)
+//   user: req.user     for all renders!
+app.use((req, res, next) => {
+  if (req.user) {
+    // Creates a variable "user" for views
     res.locals.user = req.user;
   }
-  next();
-})
 
-// ******-----Routes------*******
+  next();
+});
+
+
+//=======ROUTES===========
 
 const index = require('./routes/index');
 app.use('/', index);
+
+      //-----Route -------
+//const photos = require('./routes/photoRoute');
+//app.use('/', photos);
 
 //--------authorization routes
 const myAuthRoutes = require('./routes/authRoutes.js');
@@ -63,7 +74,24 @@ app.use('/', myAuthRoutes);
 
 //---------user route
 const myUserRoutes = require('./routes/userRoute.js');
-app.use('/', myUserRoutes);
+app.use('/', myUserRoutes); 
+
+
+// const users = require('./routes/users');
+// app.use('/users', users);
+
+//const reviews = require('./routes/photoReview');
+//app.use('/',reviews);
+
+
+
+
+
+
+
+
+
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

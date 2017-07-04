@@ -16,11 +16,13 @@ const userSchema = new Schema(
     phone:    {type:String},
     address:  {type:String},
     country:    {type:String},
+
     // role: { type: String,
     //         enum: [ 'guest', 'admin' ],
     //         default: 'guest'
     //         },
-    // family:[userFamily.Schema],
+    family:[userFamily.schema],
+    agencyInUseId: { type: Schema.Types.ObjectId },
 
     // Traditional registration users
     //username: { type: String },
@@ -40,7 +42,7 @@ const userSchema = new Schema(
   }
 );
 
-const User = mongoose.model('User', userSchema);
+const user = mongoose.model('User', userSchema);
 
 
-module.exports = User;
+module.exports = user;

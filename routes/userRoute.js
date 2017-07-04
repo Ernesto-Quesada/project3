@@ -3,12 +3,10 @@ const ensure = require('connect-ensure-login');
 const bcrypt = require('bcrypt');
 
 const User = require('../models/userModel.js');
-//const Photo = require('../models/photoModel.js');
+const Family = require('../models/userFamily.js');
 
 
 const routeforUser = express.Router();
-
-
 // routeforUser.get('/user/:id', (req, res, next) => {
 
 routeforUser.get('/profile',
@@ -21,11 +19,69 @@ routeforUser.get('/profile',
     }
 );
 
+routeforUser.get('/relative/new', (req, res, next) => {
+  res.render('user/addFamily.ejs', {
+  });
+  console.log('<><><><>',req.user._id)
+});
+
+//-------add a relative-----
+
+routeforUser.post('/relative/new', (req, res, next) => {
+  const myUserId =req.user._id
+  console.log('esta es my user Id form req.body',myUserId)
+
+  User.findById(myUserId, (err, theUser) => {
+    if (err) {
+      next(err);
+      return;
+    }
+    
+
+      //     REQUIRES THE REVIEW MODEL
+      //                     |
+    const newFamily = new Family({
+      name: req.body.relativeName,
+      firstApell: req.body.firstApell,
+      secondApell: req.body.secondApell,
+      cIdentidad:req.body.carnetId,
+      phone:req.body.phoneRelative,
+      address: req.body.addressRelative,
+      parentesco: req.body.parentesco,
+      email: req.body.emailRelative,
+      country:req.body.country,
+      
+    });
+    
+    theUser.family.push(newFamily);
+    console.log('family',theUser.family.length);
+    theUser.save((err) => {
+      
+      if (err) {
+        next(err);
+        return;
+      }
+   
+      res.render('user/userProfile.ejs');
+    });
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 // <form method="post" action="/profile/edit">
 routeforUser.post('/profile/edit',
-
   ensure.ensureLoggedIn('/login'),
-
   (req, res, next) => {
     const profileName = req.body.profileName;
     const profileUsername = req.body.profileUsername;
@@ -122,17 +178,6 @@ routeforUser.get('/myaccount',
     );
   }
 );
-
-
-
-
-
-
-
-
-
-
-
 
 routeforUser.get('/users', (req, res, next) => {
   // If you are logged in AND and admin LEZ DO THIS

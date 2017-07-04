@@ -26,7 +26,6 @@ passport.deserializeUser((userId, cb) => {
 
   // query the database with the ID from the box
   User.findById(userId, (err, theUser) => {
-    console.log(">>>>>>user",theUser);
     if (err) {
       cb(err);
       return;
@@ -40,14 +39,14 @@ passport.deserializeUser((userId, cb) => {
 passport.use( new LocalStrategy(
   // 1st arg -> options to customize LocalStrategy
   {
-      // in the form <input name="loginEmailInput">
-    emailInput: 'loginEmailInput',
+      // <input name="loginEmailInput">
+    usernameField: 'loginEmailInput',    
       // <input name="loginPassword">
-    passwordInput: 'loginPassword'
+    passwordField: 'loginPassword'
   },
 
   // 2nd arg -> callback for the logic that validates the login
-  (loginEmailInput, loginPassword, next) => {
+  (loginEmailInput, passwordField, next) => {
     User.findOne(
       { email: loginEmailInput },
 
@@ -58,17 +57,17 @@ passport.use( new LocalStrategy(
           return;
         }
 
-        // Tell Passport if there is no user with given email
+        // Tell Passport if there is no user with given username
         if (!theUser) {
             //       false in 2nd arg means "Log in failed!"
             //         |
-          next(null, false, { message: 'Wrong email' });
+          next(null, false, { message: 'Wrong username' });
           return;  //   |
         }          //   v
                    // message -> req.flash('error')
 
         // Tell Passport if the passwords don't match
-        if (!bcrypt.compareSync(loginPassword, theUser.encryptedPassword)) {
+        if (!bcrypt.compareSync(passwordField, theUser.encryptedPassword)) {
             //       false in 2nd arg means "Log in failed!"
             //         |
           next(null, false, { message: 'Wrong password' });
@@ -79,7 +78,7 @@ passport.use( new LocalStrategy(
         // Give Passport the user's details (SUCCESS!)
         next(null, theUser, {
           // message -> req.flash('success')
-          message: `Login for ${theUser.email} successful.`
+          message: `Login for ${theUser.username} successful.`
         });
           // -> this user goes to passport.serializeUser()
       }

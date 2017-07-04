@@ -13,6 +13,7 @@ const agencySchema = new Schema(
     contactPhone:    {type:String},
     address:         {type:String},
     country:         {type:String},
+    usersWithThisAgency: [{ type: Schema.Types.ObjectId }],
     // Traditional registration users
     //username: { type: String },
     //encryptedPassword: { type: String },

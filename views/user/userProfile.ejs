@@ -4,58 +4,28 @@
     <div class="col-md-6">
         <div class="control-group form-group">
             <div class="controls">
-                <p> Your Name </p>
-                <h4><%= user.name %></h4>
+                <p> First Name : <span><%= user.firstName %></span></p>
+                <p> Last Name : <span><%= user.lastName %></span></p>
+                <p> email : <span><%= user.email%></span></p>
+                <p> phone : <span><%= user.phone %></span></p>
+                <p> Country : <span><%= user.country%></span></p>
+                <p> family : <span><%= user.family %></span></p>
+                
+
                 <p class="help-block"></p>
             </div>
         </div>
-        <div class="control-group form-group">
-            <div class="controls">
-                <p> Account Name </p>
-                <h4><%= user.name %></h4>
-                <p><%= user.firstName %></p>
-                <p><%= user.lastName %></p>
-                <p><%= user.email %></p>
-                <p><%= user.telephone %></p>
-                <p><%= user.address %></p>
-                <p><%= user.country %></p>
-                <p><%= user.family %></p>
-            </div>
-        </div>  
+        
     </div>
     <br>
 
-    <div class="col-md-6">
-<h5>Edit Your Profile </h5>
-        <form method="post" action="/profile/edit">
-            <div class="control-group form-group">
-                <div class="controls">
-                <label for="name-input"> Your Name </label>
-                <input type="text" class="form-control" id="name-input" name="profileName" value="<%= user.name %>">
-                <p class="help-block"></p>
-                </div>
-            </div>
-            <div class="control-group form-group">
-                <div class="controls">
-                    <label for="username-input"> Account Name </label>
-                    <input class="form-control"  type="text" name="profileUsername" id="username-input" value="<%= user.username %>">
-                </div>
-            </div>
-            <div class="control-group form-group">
-                <div class="controls">
-                <label for="current-password-input"> Current Password </label>
-                <input  class="form-control" id="current-password-input" type="password" name="profileCurrentPassword">
-                </div>
-            </div>
-            <div class="control-group form-group">
-                <label for="new-password-input"> New Password </label>
-                <input class="form-control"  id="new-password-input" type="password" name="profileNewPassword">
-            </div>
-            <div id="success"></div>
-            <!-- For success/fail messages -->
-            <button type="submit" class="btn btn-primary">Submit edition</button>
-        </form>
-        </div>
+
     <br>
+
+
+
+    
+    <a class="btn btn-primary" href="/relative/new">Add a relative sin user id</i></a>
+
 </div>
 </div>
