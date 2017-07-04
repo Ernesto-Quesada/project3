@@ -61,8 +61,8 @@ routeforUser.post('/relative/new', (req, res, next) => {
         next(err);
         return;
       }
-   
-      res.render('user/userProfile.ejs');
+       
+      res.redirect('/profile');
     });
   });
 });
