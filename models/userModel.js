@@ -23,6 +23,7 @@ const userSchema = new Schema(
     //         },
     family:[userFamily.schema],
     agencyInUseId: { type: Schema.Types.ObjectId },
+    //relative:[{ type: Schema.Types.ObjectId }],
 
     // Traditional registration users
     //username: { type: String },
