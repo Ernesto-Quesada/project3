@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const User =(require('./userModel.js'));
 
 const Schema = mongoose.Schema;
 
@@ -12,7 +13,7 @@ const relativeSchema = new Schema(
     secondApell: { type: String },
     //***  is better to use email as username 
     //***  than username + name + email , is too confusing  */
-    relativeOfUser: { type: Schema.Types.ObjectId },
+    relativeOfUser: { type: Schema.Types.ObjectId, ref:'User' },
     email:    {type:String},
     phone:    {type:String},
     cIdentidad: { type:String},
@@ -32,7 +33,7 @@ const relativeSchema = new Schema(
   }
 );
 
-const relative = mongoose.model('Relative', relativeSchema);
+const Relative = mongoose.model('Relative', relativeSchema);
 
 
-module.exports = relative;
+module.exports = Relative;

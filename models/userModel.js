@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
-const userFamily=(require('./userFamily.js'));
+const userFamily=(require('./relativeModel.js'));
 
 const userSchema = new Schema(
   // 1st arg -> fields of the documents of this collection
@@ -21,7 +21,7 @@ const userSchema = new Schema(
     //         enum: [ 'guest', 'admin' ],
     //         default: 'guest'
     //         },
-    family:[userFamily.schema],
+    relative:[{ type: Schema.Types.ObjectId, ref: 'Relative' }],
     agencyInUseId: { type: Schema.Types.ObjectId },
     //relative:[{ type: Schema.Types.ObjectId }],
 
@@ -43,7 +43,7 @@ const userSchema = new Schema(
   }
 );
 
-const user = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
 
 
-module.exports = user;
+module.exports = User;
