@@ -19,11 +19,12 @@ routeforUser.get('/profile',
                 return;
         }
         {
-          res.render('user/userProfile.ejs',{
-            user:req.user,
-            relativeList: theRelativeList
+          res.json({user:req.user,relativeList: theRelativeList});
+          // res.render('user/userProfile.ejs',{
+          //   user:req.user,
+          //   relativeList: theRelativeList
 
-          });
+          // });
         }
       })
     }
@@ -42,16 +43,7 @@ routeforUser.post('/relative/new',
     //                      |
     ensure.ensureLoggedIn('/login'), (req, res, next) => {
 
-      //---receive all inputs from the form ----
-      const nameR = req.body.relativeName;
-      const firstApellR = req.body.firstApell;
-      const secondApellR = req.body.secondApell;
-      const cIdentidadR = req.body.carnetId;
-      //   const phoneR = req.body.phoneRelative,
-      const addressR = req.body.addressRelative;
-      const parentescoR = req.body.parentesco;
-      //       emailR: req.body.emailRelative,
-      //       countryR:req.body.country,
+      
 
     // Don't let users submit blank relatives info-----poner esto abajo|| addressR === '' || parentescoR === ''
       if (nameR === '' || firstApellR === '' || secondApellR === '' ) {
